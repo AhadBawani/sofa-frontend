@@ -1,0 +1,12 @@
+const ActionType = {
+    USER: "USER",
+    USERCART:"USERCART",
+    CART:"CART",
+    ADDTOCART:"ADDTOCART",
+    PRODUCT : "PRODUCT",
+    ALERT : "ALERT",
+    USERPROFILE:"USERPROFILE",
+    ORDERCONFIRMATION:"ORDERCONFIRMATION"
+}
+
+export default ActionType;
