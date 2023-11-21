@@ -24,7 +24,7 @@ const Header = () => {
     useEffect(() => {
         if (userId) {
             GetUserByIdHandler(dispatch, navigate, userId);
-            
+
         }
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);
@@ -38,8 +38,8 @@ const Header = () => {
             window.removeEventListener('resize', handleResize);
         };
     }, [])
-    useEffect(() => {        
-        if(userCart.length === 0) setCount(0);
+    useEffect(() => {
+        if (userCart.length === 0) setCount(0);
         if (userCart.length > 0) {
             let quantity = 0;
             userCart.map((item) => {
@@ -87,7 +87,7 @@ const Header = () => {
                             <div className="flex justify-end space-x-6 mr-8">
                                 <Link to={'/'}>Home</Link>
                                 <Link to={'/About'}>About</Link>
-                                <Link to={'/Contact'}>Contact</Link>
+                                <Link to={'/Contact'}>Contact</Link>                                
                                 <Badge badgeContent={count} color="primary">
                                     <FaShoppingCart size={24} style={{ cursor: 'pointer' }} onClick={handleCartOpen} />
                                 </Badge>
@@ -105,7 +105,7 @@ const Header = () => {
                 {userProfile && (
                     <div className='fixed z-10 top-32 
                     right-[-10px] md:right-0 transform -translate-y-1/2 p-4'>
-                        <UserProfile user={user} dispatch={dispatch}/>
+                        <UserProfile user={user} dispatch={dispatch} />
                     </div>
                 )}
             </div>

@@ -11,7 +11,10 @@ const Request = {
     ADD_CART_QUANTITY: url + '/cart/AddQuantity/',
     REMOVE_CART_QUANTITY: url + '/cart/RemoveQuantity/',
     DELETE_CART : url + '/cart/',
-    PLACE_ORDER : url + '/order/'
+    PLACE_ORDER : url + '/order/',
+    GET_ALL_ORDER : url + '/order/',
+    DELIVERED_ORDER : url + '/order/',
+    DELETE_ORDER : url + '/order/delete/'
 }
 
 export default Request;

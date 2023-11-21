@@ -39,7 +39,7 @@ export const UserSignupHandler = async (dispatch, navigate, userData) => {
                 navigate('/');
                 resolve(null); // Resolving with null as there's no error
             })
-            .catch((error) => {                
+            .catch((error) => {
                 const errorMessage = error?.response?.data || 'An error occurred';
                 reject(errorMessage); // Rejecting with the error message
             });
@@ -112,12 +112,48 @@ export const DeleteCart = async (dispatch, cartId) => {
 
 export const PlaceOrderHandler = async (dispatch, navigate, data) => {
     axios.post(Request.PLACE_ORDER, data)
-    .then((orderResponse) => {
-        console.log(orderResponse.data);
-        dispatch(OrderConfirmationAction(orderResponse.data));
-        navigate('/OrderConfirmation');
-    })
-    .catch((error) => {
-        console.log('error in place order handler', error);
-    })
+        .then((orderResponse) => {
+            dispatch(OrderConfirmationAction(orderResponse.data));
+            navigate('/OrderConfirmation');
+        })
+        .catch((error) => {
+            console.log('error in place order handler', error);
+        })
+}
+
+export const GetAllOrderHandler = async (userId, dispatch) => {
+    axios.get(Request.GET_ALL_ORDER + userId)
+        .then((orderResponse) => {
+            dispatch(OrderConfirmationAction(orderResponse.data))
+        })
+        .catch((error) => {
+            console.log('error in getting all order handler', error);
+        })
+}
+
+export const DeliveredOrderHandler = async (orderId, userId, dispatch, setOpen) => {
+    await axios.put(Request.DELIVERED_ORDER + userId, { orderId: orderId })
+        .then((response) => {
+            if (response.data) {
+                GetAllOrderHandler(userId, dispatch);
+                setOpen(false);
+            }
+        })
+        .catch((error) => {
+            console.log('error in delivering order handler', error);
+        })
+}
+
+export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => {
+    console.log(orderId);
+    await axios.put(Request.DELETE_ORDER + userId, { orderId: orderId })
+        .then((response) => {            
+            if (response.data) {
+                GetAllOrderHandler(userId, dispatch);
+                setOpen(false);
+            }
+        })
+        .catch((error) => {
+            console.log('error in deleting order handler', error);
+        })
 }
