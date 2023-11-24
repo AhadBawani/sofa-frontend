@@ -42,7 +42,7 @@ const Checkout = () => {
                                 <CustomerDetail />
                             </div>
                             <div className='border border-gray-300 rounded-xl p-3'>
-                                <div className='text-gray-600 text-3xl font-bold px-2 py-4 bg-gray-300 rounded-xl'>
+                                <div className='text-gray-600 text-2xl font-bold px-2 py-4 bg-gray-300 rounded-xl'>
                                     YOUR CART ITEM ({count})
                                 </div>
                                 <CartCard data={userCart} />

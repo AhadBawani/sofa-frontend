@@ -11,6 +11,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { GetUserCartHandler } from "../RequestHandlers/RequestHandler/RequestHandler";
 import OrderConfirmation from "../Pages/OrderConfirmation";
 import AdminHome from "../Pages/AdminHome";
+import UserOrders from "../Pages/UserOrders";
 
 const Routing = () => {
     const user = useSelector((state) => state?.User?.user);
@@ -41,6 +42,7 @@ const Routing = () => {
                                 <Route path="/Authenticate" element={<Authenticate />} />
                                 <Route path="/Checkout" element={<Checkout />} />
                                 <Route path="/OrderConfirmation" element={<OrderConfirmation />} />
+                                <Route path="/Orders" element={<UserOrders user={user} />} />
                             </Routes>
                         </>
                 }

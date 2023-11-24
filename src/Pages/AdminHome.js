@@ -2,11 +2,16 @@ import React, { useEffect, useState } from 'react'
 import { GetAllOrderHandler } from '../RequestHandlers/RequestHandler/RequestHandler';
 import TrailTable from '../Components/Admin/TrailTable';
 import { useDispatch, useSelector } from 'react-redux';
+import { Button } from '@mui/material';
+import { FiLogOut } from "react-icons/fi";
+import { UserAction } from '../Redux/Actions/UsersAction';
+import { useNavigate } from 'react-router-dom';
 
 const AdminHome = ({ user }) => {
     const [currentState, setCurrentState] = useState('pendingOrder');
     const Orders = useSelector((state) => state?.Order?.order);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [order, setOrder] = useState([]);
 
     useEffect(() => {
@@ -18,15 +23,21 @@ const AdminHome = ({ user }) => {
     };
 
     useEffect(() => {
-        if(currentState === 'pendingOrder'){
-            const orders = Orders?.filter((item) => item?.orderDelivered === false);            
+        if (currentState === 'pendingOrder') {
+            const orders = Orders?.filter((item) => item?.orderDelivered === false);
             setOrder(orders);
         }
-        else{
-            const orders = Orders?.filter((item) => item?.orderDelivered === true);            
+        else {
+            const orders = Orders?.filter((item) => item?.orderDelivered === true);
             setOrder(orders);
         }
     }, [currentState, Orders])
+
+    const handleLogout = () => {
+        localStorage.clear();
+        dispatch(UserAction(null));
+        navigate('/');
+    }
     return (
         <>
             <div className="flex justify-end mr-4 my-6">
@@ -48,9 +59,15 @@ const AdminHome = ({ user }) => {
                         Delivered Order
                     </span>
                 </div>
+                <div className='mt-2 ml-2'>
+                    <Button variant='contained'
+                        color='primary' endIcon={<FiLogOut />} onClick={handleLogout}>
+                        Logout
+                    </Button>
+                </div>
             </div>
             <div>
-                <TrailTable order={order} currentState={currentState}/>
+                <TrailTable order={order} currentState={currentState} />
             </div>
         </>
     )

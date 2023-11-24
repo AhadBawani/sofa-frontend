@@ -6,7 +6,7 @@ const ProductList = () => {
     const product = useSelector((state) => state?.Product?.products) || [];
     return (
         <div className='flex justify-center w-full'>
-            <div className='m-4 grid grid-cols-2 md:grid-cols-4 gap-8'>
+            <div className='m-4 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-8'>
                 {
                     product.map((item, index) => {
                         return <>

@@ -6,7 +6,7 @@ import { CartAction, UserProfileAction } from '../Redux/Actions/ComponentActions
 import { Avatar, Badge } from '@mui/material';
 import { useSelector } from "react-redux";
 import { getSplitedName } from '../Utils/utils';
-import { GetUserByIdHandler, GetUserCartHandler } from "../RequestHandlers/RequestHandler/RequestHandler";
+import { GetUserByIdHandler } from "../RequestHandlers/RequestHandler/RequestHandler";
 import UserProfile from './UserProfile';
 
 const Header = () => {
@@ -65,7 +65,7 @@ const Header = () => {
         <>
             <div style={location.pathname === '/Authenticate' || location.pathname === '/OrderConfirmation' ? { display: 'none' } : { display: 'block' }}>
                 <div className={"w-full bg-gray-900 h-20 text-white flex items-center justify-between px-4"}>
-                    <div className="text-3xl font-bold ml-8 cursor-pointer" onClick={() => navigate('/')}>FurniShop</div>
+                    <div className="text-3xl font-bold md:ml-8 cursor-pointer" onClick={() => navigate('/')}>Luxors Designer</div>
                     <div className="flex items-center">
                         {/* Conditional rendering based on screen size */}
                         {isMobile ? (
@@ -103,7 +103,7 @@ const Header = () => {
                     </div>
                 </div>
                 {userProfile && (
-                    <div className='fixed z-10 top-32 
+                    <div className='fixed z-10 top-36 
                     right-[-10px] md:right-0 transform -translate-y-1/2 p-4'>
                         <UserProfile user={user} dispatch={dispatch} />
                     </div>

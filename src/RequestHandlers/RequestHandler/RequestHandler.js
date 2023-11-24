@@ -144,8 +144,7 @@ export const DeliveredOrderHandler = async (orderId, userId, dispatch, setOpen) 
         })
 }
 
-export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => {
-    console.log(orderId);
+export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => {    
     await axios.put(Request.DELETE_ORDER + userId, { orderId: orderId })
         .then((response) => {            
             if (response.data) {
@@ -156,4 +155,16 @@ export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => 
         .catch((error) => {
             console.log('error in deleting order handler', error);
         })
+}
+
+export const GetUserOrderHandler = async (userId, setOrder) => {    
+    await axios.get(Request.GET_USER_ORDER + userId)
+    .then((orderResponse) => {
+        if(orderResponse.data){
+            setOrder(orderResponse.data);
+        }
+    })
+    .catch((error) => {
+        console.log('error in getting user order handler', error);
+    })
 }
