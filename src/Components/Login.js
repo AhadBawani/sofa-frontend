@@ -15,10 +15,12 @@ const Login = ({ setCurrentState }) => {
         password: false
     });
 
+    const [userNotFound, setUserNotFound] = useState(false);
+    const [invalidPassword, setInvalidPassword] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const handleLogin = () => {
+    const handleLogin = async () => {
         let valid = true;
         const newErrors = { ...errors };
 
@@ -39,7 +41,19 @@ const Login = ({ setCurrentState }) => {
 
         if (valid) {
             // If valid, proceed with login
-            LoginHandler(dispatch, navigate, userState);
+            try {
+                await LoginHandler(dispatch, navigate, userState);
+                // Proceed with successful signup
+            } catch (errorMessage) {                
+                // Handle the error message (errorMessage) here                
+                if (errorMessage?.message === 'User not found!') {
+                    setUserNotFound(true);
+                }
+                if (errorMessage?.message === 'Incorrect Password!') {
+                    setInvalidPassword(true);                    
+                }
+            }
+
         } else {
             // If validation fails, update errors state
             setErrors(newErrors);
@@ -76,6 +90,18 @@ const Login = ({ setCurrentState }) => {
                     error={errors.password}
                     helperText={errors.password ? 'Password is required' : ''}
                 />
+                {
+                    userNotFound &&
+                    <div>
+                        <span className='text-red-600 font-semibold text-base'>Invalid User!</span>
+                    </div>
+                }
+                {
+                    invalidPassword &&
+                    <div>
+                        <span className='text-red-600 font-semibold text-base'>Invalid Password!</span>
+                    </div>
+                }
                 <Button
                     className='w-3/4'
                     style={{ backgroundColor: 'rgb(45,44,40)' }}

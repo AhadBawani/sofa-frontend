@@ -17,7 +17,7 @@ const CartCard = ({ data }) => {
         RemoveCartQuantity(dispatch, id);
     }
 
-    const handleAddQuantity = (id) => {
+    const handleAddQuantity = (id) => {        
         AddCartQuantity(dispatch, id);
     }
     return (

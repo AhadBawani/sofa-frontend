@@ -15,8 +15,11 @@ const CustomerDetail = () => {
                             label="First Name"
                             name="firstName"
                             variant="filled"
-                            className="w-full"                            
+                            className="w-full"
                             value={user?.firstName}
+                            inputProps={
+                                { readOnly: true }
+                            }
                         />
                     </div>
                     <div className="flex-1">
@@ -27,6 +30,9 @@ const CustomerDetail = () => {
                             variant="filled"
                             className="w-full"
                             value={user?.lastName}
+                            inputProps={
+                                { readOnly: true }
+                            }
                         />
                     </div>
                 </div>
@@ -39,6 +45,9 @@ const CustomerDetail = () => {
                             variant="filled"
                             className="w-full"
                             value={user?.phoneNumber}
+                            inputProps={
+                                { readOnly: true }
+                            }
                         />
                     </div>
                     <div className="flex-1">
@@ -49,6 +58,9 @@ const CustomerDetail = () => {
                             variant="filled"
                             className="w-full"
                             value={user?.email}
+                            inputProps={
+                                { readOnly: true }
+                            }
                         />
                     </div>
                 </div>

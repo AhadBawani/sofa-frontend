@@ -8,17 +8,38 @@ import { OrderConfirmationAction } from "../../Redux/Actions/OrderActions";
 const userId = localStorage.getItem('userId');
 
 export const LoginHandler = async (dispatch, navigate, userData) => {
-    axios.post(Request.USER_LOGIN, userData)
-        .then((loginResponse) => {
-            dispatch(UserAction(loginResponse.data));
-            localStorage.setItem('userId', loginResponse.data?._id);
-            navigate('/');
-        })
-        .catch((loginError) => {
-            console.log('error in user login handler', loginError);
-        })
+    return new Promise((resolve, reject) => {
+        axios.post(Request.USER_LOGIN, userData)
+            .then((loginResponse) => {
+                dispatch(UserAction(loginResponse.data));
+                localStorage.setItem('userId', loginResponse.data?._id);
+                navigate('/');
+                resolve(null);
+            })
+            .catch((loginError) => {
+                const errorMessage = loginError?.response?.data || 'An error occurred';
+                reject(errorMessage); // Rejecting with the error message
+            })
+    })
 }
 
+
+export const UserSignupHandler = async (dispatch, navigate, userData) => {
+    return new Promise((resolve, reject) => {
+        axios.post(Request.USER_SIGNUP, userData)
+            .then((response) => {
+                localStorage.clear();                
+                dispatch(UserAction(response.data?.user));
+                localStorage.setItem('userId', response.data?.user?._id);
+                navigate('/');
+                resolve(null); // Resolving with null as there's no error
+            })
+            .catch((error) => {
+                const errorMessage = error?.response?.data || 'An error occurred';
+                reject(errorMessage); // Rejecting with the error message
+            });
+    });
+}
 
 export const GetProductHandler = async (dispatch) => {
     axios.get(Request.GET_PRODUCTS)
@@ -30,21 +51,6 @@ export const GetProductHandler = async (dispatch) => {
         })
 }
 
-export const UserSignupHandler = async (dispatch, navigate, userData) => {
-    return new Promise((resolve, reject) => {
-        axios.post(Request.USER_SIGNUP, userData)
-            .then((response) => {
-                dispatch(UserAction(response.data?.user));
-                localStorage.setItem('userId', response.data?._id);
-                navigate('/');
-                resolve(null); // Resolving with null as there's no error
-            })
-            .catch((error) => {
-                const errorMessage = error?.response?.data || 'An error occurred';
-                reject(errorMessage); // Rejecting with the error message
-            });
-    });
-}
 
 export const GetUserByIdHandler = async (dispatch, navigate, id) => {
     axios.get(Request.GET_USER_BY_ID + id)
@@ -144,9 +150,9 @@ export const DeliveredOrderHandler = async (orderId, userId, dispatch, setOpen) 
         })
 }
 
-export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => {    
+export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => {
     await axios.put(Request.DELETE_ORDER + userId, { orderId: orderId })
-        .then((response) => {            
+        .then((response) => {
             if (response.data) {
                 GetAllOrderHandler(userId, dispatch);
                 setOpen(false);
@@ -157,14 +163,15 @@ export const DeleteOrderHandler = async (orderId, userId, dispatch, setOpen) => 
         })
 }
 
-export const GetUserOrderHandler = async (userId, setOrder) => {    
+export const GetUserOrderHandler = async (userId, setOrder) => {
     await axios.get(Request.GET_USER_ORDER + userId)
-    .then((orderResponse) => {
-        if(orderResponse.data){
-            setOrder(orderResponse.data);
-        }
-    })
-    .catch((error) => {
-        console.log('error in getting user order handler', error);
-    })
+        .then((orderResponse) => {
+            if (orderResponse.data) {
+                setOrder(orderResponse.data);
+                console.log(orderResponse.data);
+            }
+        })
+        .catch((error) => {
+            console.log('error in getting user order handler', error);
+        })
 }

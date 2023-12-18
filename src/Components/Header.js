@@ -22,9 +22,8 @@ const Header = () => {
     const [isMobile, setIsMobile] = useState(false);
 
     useEffect(() => {
-        if (userId) {
+        if (userId) {            
             GetUserByIdHandler(dispatch, navigate, userId);
-
         }
         const handleResize = () => {
             setIsMobile(window.innerWidth < 768);

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import Request from '../RequestHandlers/Request/Request';
@@ -6,15 +6,17 @@ import { AddCartQuantity, AddToCartHandler } from '../RequestHandlers/RequestHan
 import { useNavigate } from 'react-router-dom';
 
 const Product = ({ product }) => {
+    const [disabled, setDisabled] = useState(false);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const userCart = useSelector((state) => state?.User?.userCart) || [];
     const user = useSelector((state) => state?.User?.user);
     const AddToCart = (productId) => {
+        setDisabled(true);
         if (user) {
-            const cart = userCart.find((item) => item?.productId === productId);
-            if (cart) {
-                AddCartQuantity(dispatch, cart?._id);
+            const cart = userCart.filter((item) => item?.productId === productId);
+            if (cart.length > 0) {
+                AddCartQuantity(dispatch, cart[0]?._id);
             }
             else {
                 const cartObj = {
@@ -28,6 +30,7 @@ const Product = ({ product }) => {
         else {
             navigate('/Authenticate');
         }
+        setDisabled(false);
     }
 
     return (
@@ -36,7 +39,11 @@ const Product = ({ product }) => {
                 <img src={Request.PRODUCT_IMAGE + product?.productImage} className='rounded-xl h-[120px] w-[140px] md:h-[190px] md:w-[220px]' alt={product?.productName} />
                 <div className='flex justify-end items-end mt-[-2.5rem] mr-2'>
                     <div className='p-2 rounded-full bg-blue-100 w-8 h-8 flex justify-center items-center hover:bg-blue-200'>
-                        <AiOutlinePlus size={30} className='cursor-pointer' onClick={() => AddToCart(product?.id)} />
+                        <AiOutlinePlus
+                            size={30}
+                            className={`cursor-pointer ${disabled ? 'opacity-50 pointer-events-none' : ''}`}
+                            onClick={disabled ? null : () => AddToCart(product?.id)}
+                        />
                     </div>
                 </div>
             </div>
