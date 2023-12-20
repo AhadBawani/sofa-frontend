@@ -12,6 +12,7 @@ import { GetUserCartHandler } from "../RequestHandlers/RequestHandler/RequestHan
 import OrderConfirmation from "../Pages/OrderConfirmation";
 import AdminHome from "../Pages/AdminHome";
 import UserOrders from "../Pages/UserOrders";
+import ScrollToTop from "../Components/ScrollToTop";
 
 const Routing = () => {
     const user = useSelector((state) => state?.User?.user);
@@ -28,13 +29,14 @@ const Routing = () => {
                         ?
                         <>
                             <Routes>
-                                <Route path="/" element={<AdminHome user={user}/>} />
+                                <Route path="/" element={<AdminHome user={user} />} />
                             </Routes>
                         </>
                         :
                         <>
                             <Header />
                             <Sidebar />
+                            <ScrollToTop />
                             <Routes>
                                 <Route path="/" element={<Home />} />
                                 <Route path="/About" element={<About />} />

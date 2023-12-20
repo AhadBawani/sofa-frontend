@@ -7,7 +7,7 @@ const CustomerDetail = () => {
     return (
         <div className='m-4 text-gray-600'>
             <h1 className='text-2xl font-bold'>Customer Info</h1>
-            <div className='m-2 md:m-4 p-2 md:p-4'>
+            <div className='m-1 md:m-4 p-1 md:p-4'>
                 <div className="w-full flex justify-center space-x-4 mb-6">
                     <div className="flex-1">
                         <TextField

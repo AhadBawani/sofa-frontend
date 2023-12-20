@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { AiOutlinePlus } from 'react-icons/ai';
 import { useDispatch, useSelector } from 'react-redux';
 import Request from '../RequestHandlers/Request/Request';
+import { FaRupeeSign } from "react-icons/fa";
 import { AddCartQuantity, AddToCartHandler } from '../RequestHandlers/RequestHandler/RequestHandler';
 import { useNavigate } from 'react-router-dom';
 
@@ -49,7 +50,10 @@ const Product = ({ product }) => {
             </div>
             <div className='mt-2'>
                 <div className='font-semibold lg:text-xl'>{product?.productName}</div>
-                <div className='text-base text-gray-600 font-semibold'>{product?.productPrice}</div>
+                <div className='text-lg text-gray-600 font-semibold flex'>
+                    <span className='mt-1 mr-1'><FaRupeeSign /></span>
+                    <span>{product?.productPrice}</span>
+                </div>
             </div>
         </div>
     )

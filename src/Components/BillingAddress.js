@@ -71,7 +71,7 @@ const BillingAddress = ({ user, userCart }) => {
     return (
         <div className='m-4 text-gray-600'>
             <h1 className='text-2xl font-bold'>Billing Address</h1>
-            <div className='md:m-4 m-2 md:p-4 p-2'>
+            <div className='md:m-4 m-1 mt-2 md:p-4 p-1'>
                 <div className="w-full flex justify-center space-x-4 mb-6">
                     <div className="flex-1">
                         <TextField

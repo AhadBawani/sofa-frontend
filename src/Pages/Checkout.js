@@ -45,7 +45,7 @@ const Checkout = () => {
                                 <div className='text-gray-600 text-2xl font-bold px-2 py-4 bg-gray-300 rounded-xl'>
                                     YOUR CART ITEM ({count})
                                 </div>
-                                <CartCard data={userCart} />
+                                <CartCard data={userCart} disabled={true}/>
                             </div>
                             <div className='border border-gray-300 rounded-xl mt-2 p-4'>
                                 <Summary data={userCart} />
